@@ -42,26 +42,22 @@ exports.parse = function(view, tpl, options) {
       parts[0] === tpl[i] &&
       spaces.length % this._options['spaces'] === 0
     ) {
-      if (spaces.length <= (this._open.length - 1) * this._options['spaces']) {
-        close = this._open.splice(
-          spaces.length / this._options['spaces'],
-          this._open.length
-        );
-        close.reverse();
+      close = this._open.splice(
+        0,
+        this._open.length - (spaces.length / this._options['spaces'])
+      );
 
-        for (j = 0; close[j]; ++j) {
-          doc += '</' + close[j] + '>';
-        }
+      for (j = 0; close[j]; ++j) {
+        doc += '</' + close[j] + '>';
       }
 
       doc += '<' + tag + '>' + text;
-      this._open.push(tag);
+      this._open.unshift(tag);
     } else {
       throw 'syntax error at line ' + (i + 1);
     }
   }
 
-  this._open.reverse();
   for (i = 0; this._open[i]; ++i) {
     doc += '</' + this._open[i] + '>';
   }
