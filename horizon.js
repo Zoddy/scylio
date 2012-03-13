@@ -12,7 +12,9 @@ exports._templates = {};
 exports._view = null;
 
 exports.parse = function(view, tpl, options) {
-  var close,
+  var attributes,
+      attributeParts,
+      close,
       doc = '',
       docType,
       parts,
@@ -32,16 +34,18 @@ exports.parse = function(view, tpl, options) {
 
   // go row for row
   for (i = 1; tpl[i]; ++i) {
-    parts = tpl[i].match(/^([ ]{0,})([a-z]+)( = ){0,1}(.*)?/);
+    parts = tpl[i].match(/^([ ]{0,})([a-z]+)(\(.*?\)){0,1}( = ){0,1}(.*)?/);
     spaces = parts[1];
     tag = parts[2];
-    text = parts[4] || '';
+    attributes = parts[3];
+    text = parts[5] || '';
 
     if (
-      parts.length === 5 &&
+      parts.length === 6 &&
       parts[0] === tpl[i] &&
       spaces.length % this._options['spaces'] === 0
     ) {
+      // do we need to close tags?
       close = this._open.splice(
         0,
         this._open.length - (spaces.length / this._options['spaces'])
@@ -51,7 +55,25 @@ exports.parse = function(view, tpl, options) {
         doc += '</' + close[j] + '>';
       }
 
-      doc += '<' + tag + '>' + text;
+      // do we have attributes?
+      if (attributes) {
+        attributes = (attributes.substring(
+          1,
+          attributes.length - 1
+        )).split(', ');
+
+        for (j = 0; attributes[j]; ++j) {
+          attributeParts = attributes[j].match(/^(.*?) = (.*)?/);
+          attributes[j] = attributeParts[1] + '="' + attributeParts[2] + '"';
+        }
+      }
+
+      // add new tag
+      doc += '<' +
+             tag +
+             ((attributes) ? ' ' + attributes.join(' ') : '') +
+             '>' +
+             text;
       this._open.unshift(tag);
     } else {
       throw 'syntax error at line ' + (i + 1);

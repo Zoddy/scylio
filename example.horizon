@@ -3,5 +3,5 @@ html
   head
     title = foobar
   body
-    div
-    strong
+    div(id = bar) = foobarbaz
+    strong(id = foo, class = bar baz)
