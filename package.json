@@ -1,0 +1,31 @@
+{
+  "name": "horizon.js",
+  "version": "0.0.1",
+  "description": "Template Engine without logic functions inspired by Jade and XSLT",
+  "keywords": [
+    "template"
+  ],
+  "preferGlobal": true,
+  "author": "André Kussmann <zoddy@zoddy.de>",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:meecrom/horizon.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/meecrom/horizon.js/issues"
+  },
+  "devDependencies": {
+    "mocha": "1.2.x",
+    "chai": "1.1.x"
+  },
+  "main": "./horizon",
+  "engines": {
+    "node": ">=0.4"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "homepage": "http://zoddy.github.com/horizon.js"
+}
