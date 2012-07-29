@@ -1,4 +1,4 @@
-horizon.js
+blueprint.js
 ==========
 
-Logic-less templating engine
+Logic-free templating engine

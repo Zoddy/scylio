@@ -1,89 +1,56 @@
-exports._docTypes = {
-  '5': 'html'
+exports._doctypes = {
+  '5': 'html',
+  'html': 'html'
 };
-exports._open = [];
+exports._doctypeMatch = '^@(' + Object.keys(this._doctypes).join('|') + ')$';
+exports._lineMatch = /^([ ]*)([a-z]+)(\(.*?\))?(([ ]+=[ ]+)(.+))?$/;
 exports._options = {
   'crunch': true,
   'spaces': 2
 };
-exports._rootTemplate = null;
-exports._spaces = 2;
-exports._templates = {};
-exports._view = null;
+exports._indent = 0;
 
-exports.parse = function(view, tpl, options) {
-  var attributes,
-      attributeParts,
-      close,
-      doc = '',
-      docType,
-      parts,
+
+exports.parse = function(view, template, options) {
+  var template = template.split('\n'),
+      doctype = template[0].match(new RegExp(this._doctypeMatch)),
+      lineParts,
       spaces,
-      tag,
-      tpl = tpl.split('\n'),
-      i, j;
+      element,
+      attributes,
+      text,
+      doc = '',
+      i;
 
-  // add doctype
-  docType = tpl[0].match(/^@ (.*)?/);
-
-  if (docType !== null && this._docTypes[docType[1]]) {
-    doc += '<!DOCTYPE ' + this._docTypes[docType[1]] + '>';
+  // create document type
+  if (doctype !== null) {
+    doc += '<!DOCTYPE ' + this._doctypes[doctype[1]] + '>';
   } else {
-    throw 'no doctype matching';
+    throw 'error at line 1: no doctype -> ' + template[0];
   }
 
-  // go row for row
-  for (i = 1; tpl[i]; ++i) {
-    parts = tpl[i].match(/^([ ]{0,})([a-z]+)(\(.*?\)){0,1}( = ){0,1}(.*)?/);
-    spaces = parts[1];
-    tag = parts[2];
-    attributes = parts[3];
-    text = parts[5] || '';
+  // go line for line
+  for (i = 1; template[i]; ++i) {
+    // check correct syntax
+    lineParts = template[i].match(this._lineMatch);
 
-    if (
-      parts.length === 6 &&
-      parts[0] === tpl[i] &&
-      spaces.length % this._options['spaces'] === 0
-    ) {
-      // do we need to close tags?
-      close = this._open.splice(
-        0,
-        this._open.length - (spaces.length / this._options['spaces'])
-      );
-
-      for (j = 0; close[j]; ++j) {
-        doc += '</' + close[j] + '>';
-      }
-
-      // do we have attributes?
-      if (attributes) {
-        attributes = (attributes.substring(
-          1,
-          attributes.length - 1
-        )).split(', ');
-
-        for (j = 0; attributes[j]; ++j) {
-          attributeParts = attributes[j].match(/^(.*?) = (.*)?/);
-          attributes[j] = attributeParts[1] + '="' + attributeParts[2] + '"';
-        }
-      }
-
-      // add new tag
-      doc += '<' +
-             tag +
-             ((attributes) ? ' ' + attributes.join(' ') : '') +
-             '>' +
-             text;
-      this._open.unshift(tag);
+    if (lineParts === null) {
+      throw 'error at line ' + (i + 1) + ' -> ' + template[i];
     } else {
-      throw 'syntax error at line ' + (i + 1);
+      spaces = lineParts[1];
+      element = lineParts[2];
+      attributes = lineParts[3];
+      text = lineParts[6];
+
+      // indentation correct?
+      if (spaces.length / this._options.spaces !== this._indent) {
+        throw 'wrong indentation at line ' + (i + 1) +
+          ': expect ' + this._indent * this._options.spaces +
+          ' but got ' + spaces.length;
+      }
     }
   }
 
-  for (i = 0; this._open[i]; ++i) {
-    doc += '</' + this._open[i] + '>';
-  }
-
   // return document
-  return doc;
+  return '';
 };
