@@ -1,56 +1,24 @@
-exports._doctypes = {
-  '5': 'html',
-  'html': 'html'
-};
-exports._doctypeMatch = '^@(' + Object.keys(this._doctypes).join('|') + ')$';
-exports._lineMatch = /^([ ]*)([a-z]+)(\(.*?\))?(([ ]+=[ ]+)(.+))?$/;
-exports._options = {
-  'crunch': true,
-  'spaces': 2
-};
-exports._indent = 0;
+var RandExp = require('randexp'),
+    doctypes = {
+      '5': 'html',
+      'html': 'html'
+    },
+    elementStartChar = 'a-zA-Z:_\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF' +
+      '\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF' +
+      '\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u10000-\uEFFFF',
+    elementParse = '[' + elementStartChar + ']' +
+      '[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040' + elementStartChar + ']*',
+    idParse = '#[a-zA-Z]{1}[a-zA-Z0-9-_:]*',
+    lineParse = new RegExp(
+      '^(' +
+      '(!(' + Object.keys(doctypes).join('|') + '))' + // doctype
+      '|([ ]*(' + elementParse + ')(' + idParse + ')?(\\.[\\w\\d]+)*( = (.*))?)' + // element with id, class and text content
+      '|([ ]+' + idParse + ')' + // only id
+      '|([ ]+[\\.]{1}[\\w\\d]+)' + // only class
+      '|([ ]+= .*)' + // only text content
+      '|([ ]+@[a-zA-Z0-9-]+? = .*)' + // attributes
+      '|([ ]*:(template|applyTemplates|callTemplate|set|import){1}\\(.*?\\))' + // functions
+      ')$'
+    );
 
-
-exports.parse = function(view, template, options) {
-  var template = template.split('\n'),
-      doctype = template[0].match(new RegExp(this._doctypeMatch)),
-      lineParts,
-      spaces,
-      element,
-      attributes,
-      text,
-      doc = '',
-      i;
-
-  // create document type
-  if (doctype !== null) {
-    doc += '<!DOCTYPE ' + this._doctypes[doctype[1]] + '>';
-  } else {
-    throw 'error at line 1: no doctype -> ' + template[0];
-  }
-
-  // go line for line
-  for (i = 1; template[i]; ++i) {
-    // check correct syntax
-    lineParts = template[i].match(this._lineMatch);
-
-    if (lineParts === null) {
-      throw 'error at line ' + (i + 1) + ' -> ' + template[i];
-    } else {
-      spaces = lineParts[1];
-      element = lineParts[2];
-      attributes = lineParts[3];
-      text = lineParts[6];
-
-      // indentation correct?
-      if (spaces.length / this._options.spaces !== this._indent) {
-        throw 'wrong indentation at line ' + (i + 1) +
-          ': expect ' + this._indent * this._options.spaces +
-          ' but got ' + spaces.length;
-      }
-    }
-  }
-
-  // return document
-  return '';
-};
+console.log(new RandExp(new RegExp(lineParse)).gen());
