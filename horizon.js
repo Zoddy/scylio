@@ -8,13 +8,14 @@ var RandExp = require('randexp'),
       '\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u10000-\uEFFFF',
     nameParse = '[' + nameStartChar + ']' +
       '[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040' + nameStartChar + ']*',
-    idParse = '#[a-zA-Z]{1}[a-zA-Z0-9-_:]*',
+    idParse = '#[a-zA-Z][a-zA-Z0-9-_:]*',
+    classParse = '\\..+?',
     lineParse = new RegExp(
       '^(' +
       '(!(' + Object.keys(doctypes).join('|') + '))' + // doctype
-      '|([ ]*(' + nameParse + ')(' + idParse + ')?(\\.[\\w\\d]+)*( = (.*))?)' + // element with id, class and text content
+      '|([ ]*(' + nameParse + ')(' + idParse + ')?(' + classParse + ')*( = (.*))?)' + // element with id, class and text content
       '|([ ]*' + idParse + ')' + // only id
-      '|([ ]*[\\.]{1}[\\w\\d]+)' + // only class
+      '|([ ]*' + classParse + ')' + // only class
       '|([ ]*= .*)' + // only text content
       '|([ ]*@' + nameParse + '? = .*)' + // attributes
       '|([ ]*:(template|applyTemplates|callTemplate|set|import)\\(.*?\\))' + // functions
