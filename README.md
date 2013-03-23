@@ -12,8 +12,68 @@ Allocation and functional based templating engine.
 Argument            |Definition
 --------------------|----------
 -w --watch       |Get in watch mode, and whenever a file change (also the imported files), recreate all
--c --compile     |If this is set, horizon will compile to one line and dumps whitespaces. if not you will get a pretty printed html file (good for debugging)
-(-o --out)=TARGET|If you want a specific target path and filename, when you have toset it here
+-c --compile     |If this is set, horizon will compile to one line and dumps whitespaces. If not you will get a pretty printed html file (good for debugging)
+(-o --out)=TARGET|If you want a specific target path and filename, when you have to set it here
+
+
+## Examples
+
+### List of Tasks
+JSON Data:
+
+    [{
+      "title": "Lorem ipsum",
+      "content": "Dolor sit amet"
+    }, {
+      "title": "Hello",
+      "content": "World"
+    }, {
+      "title": "Foo",
+      "content": "Bar"
+    }]
+
+Horizon Template for the Body:
+
+    :template('$')
+      @5
+      html
+        head
+          title = Horizon Template Example Tasks
+        body
+          ul#task-list
+            :apply-templates('.*')
+
+Horizon Template for the List:
+
+    :template('@')
+      li
+        strong = {{ title }}
+        span = {{ content }}
+        
+This will output the following:
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Horizon Template Example Tasks</title>
+      </head>
+      <body>
+        <ul id="task-list">
+          <li>
+            <strong>Lorem Ipsum</strong>
+            <span>Dolor sit amet</span>
+          </li>
+          <li>
+            <strong>Hello</strong>
+            <span>World</span>
+          </li>
+          <li>
+            <strong>Foo</strong>
+            <span>Bar</span>
+          </li>
+        </ul>
+      </body>
+    </html>
 
 ## Elements
 
@@ -28,7 +88,7 @@ It's very easy to define elements.
       = lorem ipsum
       = dolor sit amet
       
-This will create the html `<div id="foo" class="bar baz" title="test">lorem ipsum dolor sit amet</div>`. This is the strict variant of horizon. You can also us various shortcuts, let's see:
+This will create the html `<div id="foo" class="bar baz" title="test">lorem ipsum dolor sit amet</div>`. This is the strict variant of horizon. You can also use various shortcuts, let's see:
 
     div#foo.bar.baz(title = test) = lorem ipsum dolor sit amet
 
