@@ -11,9 +11,9 @@ Allocation and functional based templating engine.
 
 Argument            |Definition
 --------------------|----------
--w \| --watch       |Get in watch mode, and whenever a file change (also the imported files), recreate all
--c \| --compile     |If this is set, horizon will compile to one line and dumps whitespaces. if not you will get a pretty printed html file (good for debugging)
-(-o \| --out)=TARGET|If you want a specific target path and filename, when you have toset it here
+-w --watch       |Get in watch mode, and whenever a file change (also the imported files), recreate all
+-c --compile     |If this is set, horizon will compile to one line and dumps whitespaces. if not you will get a pretty printed html file (good for debugging)
+(-o --out)=TARGET|If you want a specific target path and filename, when you have toset it here
 
 ## Elements
 
