@@ -39,7 +39,7 @@ JSON Data:
 
 Horizon Template for the Body:
 
-    :template('body')
+    :template('$')
       @5
       html
         head
@@ -50,7 +50,7 @@ Horizon Template for the Body:
 
 Horizon Template for the List:
 
-    :template('content')
+    :template('@')
       li
         strong = {{ title }}
         span = {{ content }}
@@ -104,9 +104,9 @@ All functions begins with a `:`, followed by function name and arguments between
 
 ## Define a template
 
-    :template([name])
+    :template(query)
 
-**name** - Name of the template, it's optional, but good for debugging
+**query** - JSONPath query to iterate over
 
 ## Set Variables
 You can set global and local variables for using in all templates. If you set this outside of a template, it's global, instead it's local for the template. You can not override horizon-based variables.
