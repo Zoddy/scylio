@@ -3,6 +3,22 @@ horizon
 
 Allocation and functional based templating engine.
 
+# Index
+* [Elements](https://github.com/meecrom/horizon#elements)
+* [Functions](https://github.com/meecrom/horizon#functions)
+  * [:template](https://github.com/meecrom/horizon#define-a-template)
+  * [:set](https://github.com/meecrom/horizon#set-variables)
+  * [:get](https://github.com/meecrom/horizon#get-variables)
+  * [:import](https://github.com/meecrom/horizon#import-plain-text)
+  * [:setLocale](https://github.com/meecrom/horizon#internationalization--i18n)
+  * [:getLocale](https://github.com/meecrom/horizon#internationalization--i18n)
+  * [:__](https://github.com/meecrom/horizon#localization--l10n)
+  * [:numberFormat](https://github.com/meecrom/horizon#numbers)
+  * [:number](https://github.com/meecrom/horizon#numbers)
+  * [:currencyFormat](https://github.com/meecrom/horizon#currency)
+  * [:currency](https://github.com/meecrom/horizon#currency)
+* [Examples](https://github.com/meecrom/horizon#examples)
+
 
 # Examples
 
