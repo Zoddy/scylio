@@ -41,7 +41,7 @@ Horizon Template for the Body:
           title = Horizon Template Example Tasks
         body
           ul#task-list
-            :apply-templates('.*')
+            :apply-template('task-list')
 
 Horizon Template for the List:
 
@@ -116,6 +116,7 @@ You can set global and local variables for using in all templates. If you set th
     :set('foo', 'bar') // sets variable 'foo' to 'bar'
     :set('foo', 123) // sets variable 'foo' to 123
 
+
 ### Get Variables
 To get the setted variables.
 
@@ -125,6 +126,7 @@ To get the setted variables.
 
     :set('foo', 123) // first set 'foo' to 123
     :get('foo') // returns 123
+
 
 ### Import plain text
 You can import any other file as a plain text. But with this function you can also uses import hooks. That means, if you import a less-file and there's a hook for it (horizon.js brings it themself) it will automatically parse the file.
@@ -137,4 +139,22 @@ You can import any other file as a plain text. But with this function you can al
   **keysParse** - will the keys parse `after` parsing the document or `before` that? **[ default: 'before' ]**
 
 
+### Formatting
 
+There are always two ways to implement the formatters. It's like the variable function. If you set it outside a template, the settings will be global, otherwise local for the template. But you can also formatting it inline.
+
+Most formatting is based on the locale
+
+#### Numbers
+
+    :numberFormat(decimalNumbers, decimalMark, digitGroup) // global or temporary
+    :number(number, decimalNumbers, decimalMark, digitGroup) // inline
+    :number(number) // inline, but with default or from :numberFormat
+
+**number** - the number which you want to format
+**decimalNumbers** - count of numbers after the decimal mark **[ default: 2 ]**  
+**decimalMark** - char(s) for the decimal mark **[ default: '.' ]**  
+**digitGroup** - char(s) for digit grouping **[ default: ',' ]**
+
+    :number(10123.4583, 2, ',', '.') // will output 10.123,45
+    :number(10123.4583, 1, '.', ',') // will output 10,123.4
