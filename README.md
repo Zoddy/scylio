@@ -1,19 +1,7 @@
-horizon.js
-==========
+horizon
+=======
 
 Allocation and functional based templating engine.
-
-# Usage
-
-## Command Line
-
-    $ horizon foo.horizon [arguments..]
-
-Argument|Definition
---------|----------
--w --watch|Get in watch mode, and whenever a file change (also the imported files), recreate all
--c --compile|If this is set, horizon will compile to one line and dumps whitespaces. If not you will get a pretty printed html file (good for debugging)
-(-o --out)=TARGET|If you want a specific target path and filename, when you have to set it here
 
 
 # Examples
