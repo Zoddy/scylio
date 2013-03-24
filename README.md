@@ -18,6 +18,7 @@ Allocation and functional based templating engine.
   * [:currencyFormat](https://github.com/meecrom/horizon#currency)
   * [:currency](https://github.com/meecrom/horizon#currency)
 * [Examples](https://github.com/meecrom/horizon#examples)
+  * [List of tasks](https://github.com/meecrom/horizon#list-of-tasks)
 
 
 # Examples

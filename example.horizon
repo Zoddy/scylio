@@ -1,7 +1,0 @@
-@5
-html
-  head
-    title = foobar
-  body
-    div(id = bar) = foobarbaz
-    strong(id = foo, class = bar baz)
