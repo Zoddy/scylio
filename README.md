@@ -1,24 +1,24 @@
 horizon.js
-============
+==========
 
 Allocation and functional based templating engine.
 
-## Usage
+# Usage
 
-### Command Line
+## Command Line
 
-    $ horizon foo.horizon [-w|--watch] [-c|--compile] [(-o|--out)=TARGET]
+    $ horizon foo.horizon [arguments..]
 
-Argument            |Definition
---------------------|----------
--w --watch       |Get in watch mode, and whenever a file change (also the imported files), recreate all
--c --compile     |If this is set, horizon will compile to one line and dumps whitespaces. If not you will get a pretty printed html file (good for debugging)
+Argument|Definition
+--------|----------
+-w --watch|Get in watch mode, and whenever a file change (also the imported files), recreate all
+-c --compile|If this is set, horizon will compile to one line and dumps whitespaces. If not you will get a pretty printed html file (good for debugging)
 (-o --out)=TARGET|If you want a specific target path and filename, when you have to set it here
 
 
-## Examples
+# Examples
 
-### List of Tasks
+## List of Tasks
 JSON Data:
 
     [{
@@ -34,18 +34,18 @@ JSON Data:
 
 Horizon Template for the Body:
 
-    :template('$')
+    :template('body')
       @5
       html
         head
           title = Horizon Template Example Tasks
         body
           ul#task-list
-            :apply-template('task-list')
+            :applyTemplate('task-list')
 
 Horizon Template for the List:
 
-    :template('@')
+    :template('content')
       li
         strong = {{ title }}
         span = {{ content }}
@@ -75,9 +75,9 @@ This will output the following:
       </body>
     </html>
 
-## Elements
+# Elements
 
-### Define elements
+## Define elements
 It's very easy to define elements.
 
     div
@@ -94,18 +94,16 @@ This will create the html `<div id="foo" class="bar baz" title="test">lorem ipsu
 
 That's it. It will create the same html.
 
-## Functions
+# Functions
 All functions begins with a `:`, followed by function name and arguments between braces (like a function call in much programming languages).
 
-### Define a template
+## Define a template
 
-    :template(query)
+    :template([name])
 
-**query** - A SparQL query, that says for which nodes this template is responsible.
+**name** - Name of the template, it's optional, but good for debugging
 
-    :template('/user') // a template which is responsible for the user nodes
-
-### Set Variables
+## Set Variables
 You can set global and local variables for using in all templates. If you set this outside of a template, it's global, instead it's local for the template. You can not override horizon-based variables.
 
     :set(key, value)
@@ -117,7 +115,7 @@ You can set global and local variables for using in all templates. If you set th
     :set('foo', 123) // sets variable 'foo' to 123
 
 
-### Get Variables
+## Get Variables
 To get the setted variables.
 
     :get(key)
@@ -128,7 +126,7 @@ To get the setted variables.
     :get('foo') // returns 123
 
 
-### Import plain text
+## Import plain text
 You can import any other file as a plain text. But with this function you can also uses import hooks. That means, if you import a less-file and there's a hook for it (horizon.js brings it themself) it will automatically parse the file.
 
     :import(filepath[, options])
@@ -139,22 +137,49 @@ You can import any other file as a plain text. But with this function you can al
   **keysParse** - will the keys parse `after` parsing the document or `before` that? **[ default: 'before' ]**
 
 
+## Internationalization / i18n
+
+The defualt locale is en_US. If you want to change this:
+
+    :setLocale('de_DE')
+    
+And to get it:
+
+    :getLocale() // will return 'de_DE'
+
+### Localization / l10n
+
+To add localization support, you have to set the l10n-setting.
+
+    :__(key[, [sprintf, ..][, plural]])
+
+**key** - identifier of the text  
+**sprintf** - horizon supports sprintf, so you can add sprintf variables as much, as you want, also nesting (and deep nesting) is supported  
+**plural** - number how much entities you have, so the text can use the plural, singular, null or whatever form
+
+    :__('Foo %s Baz', 'Bar') // 'Foo Bar Baz'
+    :__('Cat', 1) // Cat
+    :__('Cat', 2) // Cats
+
+
 ### Formatting
 
 There are always two ways to implement the formatters. It's like the variable function. If you set it outside a template, the settings will be global, otherwise local for the template. But you can also formatting it inline.
 
-Most formatting is based on the locale
 
 #### Numbers
 
-    :numberFormat(decimalNumbers, decimalMark, digitGroup) // global or temporary
-    :number(number, decimalNumbers, decimalMark, digitGroup) // inline
+    :numberFormat(decimalCount, decimalMark, digitGroup) // global or temporary
+    :number(number, decimalCount, decimalMark, digitGroup) // inline
     :number(number) // inline, but with default or from :numberFormat
 
 **number** - the number which you want to format
-**decimalNumbers** - count of numbers after the decimal mark **[ default: 2 ]**  
+**decimalcount** - count of numbers after the decimal mark **[ default: 2 ]**  
 **decimalMark** - char(s) for the decimal mark **[ default: '.' ]**  
 **digitGroup** - char(s) for digit grouping **[ default: ',' ]**
 
     :number(10123.4583, 2, ',', '.') // will output 10.123,45
     :number(10123.4583, 1, '.', ',') // will output 10,123.4
+
+
+#### Currency
