@@ -4,6 +4,7 @@ horizon
 Allocation and functional based templating engine.
 
 # Index
+* [Options / Configuration](#options--configurations)
 * [Elements](#elements)
 * [Functions](#functions)
   * [:template](#define-a-template)
@@ -79,6 +80,17 @@ This will output the following:
         </ul>
       </body>
     </html>
+
+# Options / Configuration
+You can set various options, to control the behavior of horizon. With just one parameter, you can read the options value. If you set the second parameter, you will also set the option.
+
+    :config(key, [value])
+
+Here is the list of available options:
+
+    minimize: true | false // set to true, if the output should be minimized
+    closeTags: true | false // if you have elements with no content (typically br-tags), they will be closed like <br />, otherwise just <br>
+    
 
 # Elements
 
