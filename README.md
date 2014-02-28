@@ -4,7 +4,7 @@ horizon
 Allocation and functional based templating engine.
 
 # Index
-* [Options / Configuration](#options--configurations)
+* [Options / Configuration](#options--configuration)
 * [Elements](#elements)
 * [Functions](#functions)
   * [:template](#define-a-template)
