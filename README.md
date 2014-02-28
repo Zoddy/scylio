@@ -88,8 +88,8 @@ You can set various options, to control the behavior of horizon. With just one p
 
 Here is the list of available options:
 
-    minimize: true | false // set to true, if the output should be minimized
-    closeTags: true | false // if you have elements with no content (typically br-tags), they will be closed like <br />, otherwise just <br>
+* minimize: **true** or **false** - set to true, if the output should be minimized
+* closeTags: **true** or **false** - if you have elements with no content (typically br-tags), they will be closed like ```<br />```, otherwise just ```<br>```
     
 
 # Elements
