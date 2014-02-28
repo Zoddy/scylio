@@ -10,8 +10,7 @@ Allocation and functional based templating engine.
   * [:template - Define a template](#define-a-template)
   * [:var - Get or set a variable](#variables)
   * [:import - Import plain text](#import-plain-text)
-  * [:setLocale - Set locale](#internationalization--i18n)
-  * [:getLocale - Get locale](#internationalization--i18n)
+  * [:locale - Get or set locale](#internationalization--i18n)
   * [:__ - Localization / String translation](#localization--l10n)
   * [:numberFormat - Define how format numbers](#numbers)
   * [:number - Formats a number](#numbers)
@@ -148,13 +147,11 @@ You can import any other file as a plain text. But with this function you can al
 
 ## Internationalization / i18n
 
-The defualt locale is en_US. If you want to change this:
+The default locale is en_US. If you are using no parameter, you will get the current setted locale. With one parameter you set the locale.
 
-    :setLocale('de_DE')
-    
-And to get it:
-
-    :getLocale() // will return 'de_DE'
+    :locale() // will return 'en_US'
+    :locale('de_DE') // set locale and return 'de_DE'
+    :locale() // will return 'de_DE'
 
 ### Localization / l10n
 
