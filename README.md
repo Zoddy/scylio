@@ -19,6 +19,7 @@ Allocation and functional based templating engine.
   * [:currency - Formats a currency](#currency)
 * [Examples](#examples)
   * [List of tasks](#list-of-tasks)
+* [Strict Coding Conventions](#strict-coding-conventions)
 
 
 # Examples
@@ -89,6 +90,7 @@ Here is the list of available options:
 
 * minimize: **true** or **false** - set to true, if the output should be minimized
 * closeTags: **true** or **false** - if you have elements with no content (typically br-tags), they will be closed like ```<br />```, otherwise just ```<br>```
+* strict: **true** or **false** - built-in check for strict coding conventions, see [Strict Coding Conventions](#strict-coding-conventions)
     
 
 # Elements
