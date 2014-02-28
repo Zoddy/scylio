@@ -8,8 +8,7 @@ Allocation and functional based templating engine.
 * [Elements](#elements)
 * [Functions](#functions)
   * [:template](#define-a-template)
-  * [:set](#set-variables)
-  * [:get](#get-variables)
+  * [:var](#variables)
   * [:import](#import-plain-text)
   * [:setLocale](#internationalization--i18n)
   * [:getLocale](#internationalization--i18n)
@@ -120,27 +119,18 @@ All functions begins with a `:`, followed by function name and arguments between
 
 **query** - JSONPath query to iterate over
 
-## Set Variables
-You can set global and local variables for using in all templates. If you set this outside of a template, it's global, instead it's local for the template. You can not override horizon-based variables.
+## Variables
+You can set global and local variables for using in all templates. If you set this outside of a template, it's global, instead it's local for the template. You can not override horizon-based variables. If you're using just one parameter, the var-function is used as a getter, with a second parameter as a setter.
 
-    :set(key, value)
+    :var(key, [value])
 
 **key** - name of the variable  
 **value** - content of the variable
 
-    :set('foo', 'bar') // sets variable 'foo' to 'bar'
-    :set('foo', 123) // sets variable 'foo' to 123
+    :var('foo', 'bar') // sets variable 'foo' to 'bar'
+    :var('foo', 123) // overwrites variable 'foo' to 123
+    :var('foo') // returns 123
 
-
-## Get Variables
-To get the setted variables.
-
-    :get(key)
-
-**key** - name of the variable
-
-    :set('foo', 123) // first set 'foo' to 123
-    :get('foo') // returns 123
 
 
 ## Import plain text
