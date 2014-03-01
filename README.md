@@ -166,6 +166,7 @@ To add localization support, you have to set the l10n-setting.
     :__('Foo %s Baz', 'Bar') // 'Foo Bar Baz'
     :__('Cat', 1) // Cat
     :__('Cat', 2) // Cats
+    :__('%s %d', 'My', 2, :__('Cat', 2)) // My 2 Cats
 
 
 ### Formatting
