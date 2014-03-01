@@ -1,5 +1,5 @@
-horizon
-=======
+scylio
+======
 
 Allocation and functional based templating engine.
 
@@ -37,18 +37,18 @@ JSON Data:
       "content": "Bar"
     }]
 
-Horizon Template for the Body:
+scylio Template for the Body:
 
     :template('$')
       @5
       html
         head
-          title = Horizon Template Example Tasks
+          title = Scylio Template Example Tasks
         body
           ul#task-list
             :applyTemplate('task-list')
 
-Horizon Template for the List:
+scylio Template for the List:
 
     :template('@')
       li
@@ -60,7 +60,7 @@ This will output the following:
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Horizon Template Example Tasks</title>
+        <title>Scylio Template Example Tasks</title>
       </head>
       <body>
         <ul id="task-list">
@@ -81,7 +81,7 @@ This will output the following:
     </html>
 
 # Options / Configuration
-You can set various options, to control the behavior of horizon. With just one parameter, you can read the options value. If you set the second parameter, you will also set the option.
+You can set various options, to control the behavior of scylio. With just one parameter, you can read the options value. If you set the second parameter, you will also set the option.
 
     :config(key, [value])
 
@@ -105,7 +105,7 @@ It's very easy to define elements.
       = lorem ipsum
       = dolor sit amet
       
-This will create the html `<div id="foo" class="bar baz" title="test">lorem ipsum dolor sit amet</div>`. This is the strict variant of horizon. You can also use various shortcuts, let's see:
+This will create the html `<div id="foo" class="bar baz" title="test">lorem ipsum dolor sit amet</div>`. This is the strict variant of scylio. You can also use various shortcuts, let's see:
 
     div#foo.bar.baz(title = test) = lorem ipsum dolor sit amet
 
@@ -121,7 +121,7 @@ All functions begins with a `:`, followed by function name and arguments between
 **query** - JSONPath query to iterate over
 
 ## Variables
-You can set global and local variables for using in all templates. If you set this outside of a template, it's global, instead it's local for the template. You can not override horizon-based variables. If you're using just one parameter, the var-function is used as a getter, with a second parameter as a setter.
+You can set global and local variables for using in all templates. If you set this outside of a template, it's global, instead it's local for the template. You can not override scylio-based variables. If you're using just one parameter, the var-function is used as a getter, with a second parameter as a setter.
 
     :var(key, [value])
 
@@ -135,13 +135,13 @@ You can set global and local variables for using in all templates. If you set th
 
 
 ## Import plain text
-You can import any other file as a plain text. But with this function you can also uses import hooks. That means, if you import a less-file and there's a hook for it (horizon.js brings it themself) it will automatically parse the file.
+You can import any other file as a plain text. But with this function you can also uses import hooks. That means, if you import a less-file and there's a hook for that, it will automatically parse the file.
 
     :import(filepath[, options])
 
 **filepath** - absolute path of the file, or relative to the template  
 **options** - key-value-object with the following things:
-  **useKeys** - this defines if horizon will parse keys in the document **[ default: true ]**  
+  **useKeys** - this defines if scylio will parse keys in the document **[ default: true ]**  
   **keysParse** - will the keys parse `after` parsing the document or `before` that? **[ default: 'before' ]**
 
 
@@ -160,7 +160,7 @@ To add localization support, you have to set the l10n-setting.
     :__(key[, [sprintf, ..][, plural]])
 
 **key** - identifier of the text  
-**sprintf** - horizon supports sprintf, so you can add sprintf variables as much, as you want, also nesting (and deep nesting) is supported  
+**sprintf** - scylio supports sprintf, so you can add sprintf variables as much, as you want, also nesting (and deep nesting) is supported  
 **plural** - number how much entities you have, so the text can use the plural, singular, null or whatever form
 
     :__('Foo %s Baz', 'Bar') // 'Foo Bar Baz'
