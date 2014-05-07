@@ -5,6 +5,7 @@ Allocation and functional based templating engine.
 
 # Index
 * [Options / Configuration](#options--configuration)
+* [Doctype](#doctype)
 * [Elements](#elements)
 * [Functions](#functions)
   * [:template - Define a template](#define-a-template)
@@ -40,7 +41,7 @@ JSON Data:
 scylio Template for the Body:
 
     :template('$')
-      @5
+      !!!5
       html
         head
           title = Scylio Template Example Tasks
@@ -91,6 +92,15 @@ Here is the list of available options:
 * closeTags: **true** or **false** - if you have elements with no content (typically br-tags), they will be closed like ```<br />```, otherwise just ```<br>```
 * strict: **true** or **false** - built-in check for strict coding conventions, see [Strict Coding Conventions](#strict-coding-conventions)
     
+# Doctype
+
+Just begin your line with `!!!` and a following identifier to set the doctype.
+
+Implemented doctypes
+
+* `!!!5 // <!DOCTYPE html>`
+* `!!!html  // <!DOCTYPE html>`
+
 
 # Elements
 
