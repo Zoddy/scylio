@@ -177,7 +177,7 @@ The default locale is en_US. If you are using no parameter, you will get the cur
 
 To add localization support, you have to set the l10n-setting.
 
-    :__(key[, [sprintf, ..][, plural]])
+    :__(key[, sprintf][, plural]])
 
 **key** - identifier of the text  
 **sprintf** - scylio supports sprintf, so you can add sprintf variables as much, as you want, also nesting (and deep nesting) is supported  
@@ -186,7 +186,24 @@ To add localization support, you have to set the l10n-setting.
     :__('Foo %s Baz', 'Bar') // 'Foo Bar Baz'
     :__('Cat', 1) // Cat
     :__('Cat', 2) // Cats
-    :__('%s %d', 'My', 2, :__('Cat', 2)) // My 2 Cats
+    :__('%s %d %s', ['My', 2, :__('Cat', 2)]) // My 2 Cats
+
+You can also use Key-Wildcards instead of sprintf.
+
+    :___(key[, keyValues][, plural])
+
+**key** - identifier of the text  
+**keyValues** - key/value-object with key-wildcards and their values  
+**plural** - number how much entities you have, so the text can use the plural, singular, null or whatever form
+
+    :__('Foo __BAR__ Baz', {'__BAR__': 'Bar'}) // 'Foo Bar Baz'
+    :__('Cat', 1) // Cat
+    :__('Cat', 2) // Cats
+    :__('__OWNER__ __AMOUNT__ __PET__', {
+      '__OWNER__': 'My',
+      '__AMOUNT__': 2,
+      '__PET__': :__('Cat', 2)]
+    }) // My 2 Cats
 
 
 ### Formatting
