@@ -55,7 +55,7 @@ scylio Template for the List:
       li
         strong = {{ title }}
         span = {{ content }}
-        
+
 This will output the following:
 
     <!DOCTYPE html>
@@ -91,15 +91,25 @@ Here is the list of available options:
 * minimize: **true** or **false** - set to true, if the output should be minimized
 * closeTags: **true** or **false** - if you have elements with no content (typically br-tags), they will be closed like `<br />`, otherwise just `<br>`
 * strict: **true** or **false** - built-in check for strict coding conventions, see [Strict Coding Conventions](#strict-coding-conventions)
-    
+
 # Doctype
 
 Just begin your line with `!!!` and a following identifier to set the doctype.
 
 Implemented doctypes
 
-* `!!!5 // <!DOCTYPE html>`
-* `!!!html  // <!DOCTYPE html>`
+|Command|Command Long|Output|
+|-------|-----------|------|
+|`!!!5`|`!!!HTML 5`|`<!DOCTYPE html>`|
+|`!!!html`|`!!!HTML 5`|`<!DOCTYPE html>`|
+|`!!!4s`|`!!!HTML 4.01 Strict`|`<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">`|
+|`!!!4t`|`!!!HTML 4.01 Transitional`|`<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">`|
+|`!!!4f`|`!!!HTML 4.01 Frameset`|`<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">`|
+|`!!!x1s`|`!!!XHTML 1.0 Strict`|`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">`|
+|`!!!x1t`|`!!!XHTML 1.0 Transitional`|`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">`|
+|`!!!x1f`|`!!!XHTML 1.0 Frameset`|`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">`|
+|`!!!x11`|`!!!XHTML 1.1`|`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">`|
+
 
 
 # Elements
@@ -114,7 +124,7 @@ It's very easy to define elements.
       @title = test // set the attribute 'title' to 'test'
       = lorem ipsum
       = dolor sit amet
-      
+
 This will create the html `<div id="foo" class="bar baz" title="test">lorem ipsum dolor sit amet</div>`. This is the strict variant of scylio. You can also use various shortcuts, let's see:
 
     div#foo.bar.baz(title = test) = lorem ipsum dolor sit amet
