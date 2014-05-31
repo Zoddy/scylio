@@ -98,7 +98,7 @@ Just begin your line with `!!!` and a following identifier to set the doctype.
 
 Implemented doctypes
 
-|Command|Command Long|Output|
+|Command|Alias|Output|
 |-------|-----------|------|
 |`!!!5`|`!!!HTML 5`|`<!DOCTYPE html>`|
 |`!!!html`|`!!!HTML 5`|`<!DOCTYPE html>`|
@@ -160,9 +160,9 @@ You can import any other file as a plain text. But with this function you can al
     :import(filepath[, options])
 
 **filepath** - absolute path of the file, or relative to the template  
-**options** - key-value-object with the following things:
-  **useKeys** - this defines if scylio will parse keys in the document **[ default: true ]**  
-  **keysParse** - will the keys parse `after` parsing the document or `before` that? **[ default: 'before' ]**
+**options** - key-value-object with the following things:  
+**useKeys** - this defines if scylio will parse keys in the document **[ default: true ]**  
+**keysParse** - will the keys parse `after` parsing the document or `before` that? **[ default: 'before' ]**
 
 
 ## Internationalization / i18n
