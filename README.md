@@ -133,7 +133,7 @@ This will create the html `<div id="foo" class="bar baz" title="test">lorem ipsu
 That's it. It will create the same html.
 
 # Functions
-All functions begins with a `:`, followed by function name and arguments between braces (like a function call in much programming languages).
+All functions begins with a `:`, followed by function name and arguments between braces (like a function call in much programming languages). If you don't have arguments, then you don't have to use braces.
 
 ## Define a template
 
@@ -158,53 +158,34 @@ You can set global and local variables for using in all templates. If you set th
 ## Import plain text
 You can import any other file as a plain text. But with this function you can also uses import hooks. That means, if you import a less-file and there's a hook for that, it will automatically parse the file.
 
-    :import(filepath[, options])
+    :import([options])
 
-**filepath** - absolute path of the file, or relative to the template  
 **options** - key-value-object with the following things:  
 **useKeys** - this defines if scylio will parse keys in the document **[ default: true ]**  
 **keysParse** - will the keys parse `after` parsing the document or `before` that? **[ default: 'before' ]**
+
+    '/var/www/test.txt'|:import // will import the file from given filepath
 
 
 ## Internationalization / i18n
 
 The default locale is en_US. If you are using no parameter, you will get the current setted locale. With one parameter you set the locale.
 
-    :locale() // will return 'en_US'
+    :locale // will return 'en_US'
     :locale('de_DE') // set locale and return 'de_DE'
-    :locale() // will return 'de_DE'
+    :locale // will return 'de_DE'
 
 ### Localization / l10n
 
 To add localization support, you have to set the l10n-setting.
 
-    :__(key[, sprintf][, plural]])
+    :__([plural])
 
-**key** - identifier of the text  
-**sprintf** - scylio supports sprintf, so you can add sprintf variables as much, as you want, also nesting (and deep nesting) is supported  
-**plural** - number how much entities you have, so the text can use the plural, singular, null or whatever form
+**plural** - number how much entities you have, so the text can use the plural, singular, null or whatever form **[ default: 1 ]**
 
-    :__('Foo %s Baz', 'Bar') // 'Foo Bar Baz'
-    :__('Cat', 1) // Cat
-    :__('Cat', 2) // Cats
-    :__('%s %d %s', ['My', 2, :__('Cat', 2)]) // My 2 Cats
-
-You can also use Key-Wildcards instead of sprintf.
-
-    :___(key[, keyValues][, plural])
-
-**key** - identifier of the text  
-**keyValues** - key/value-object with key-wildcards and their values  
-**plural** - number how much entities you have, so the text can use the plural, singular, null or whatever form
-
-    :__('Foo __BAR__ Baz', {'__BAR__': 'Bar'}) // 'Foo Bar Baz'
-    :__('Cat', 1) // Cat
-    :__('Cat', 2) // Cats
-    :__('__OWNER__ __AMOUNT__ __PET__', {
-      '__OWNER__': 'My',
-      '__AMOUNT__': 2,
-      '__PET__': :__('Cat', 2)]
-    }) // My 2 Cats
+    'Cat'|:__ // will output 'Katze', if you have a german translation
+    'Cat'|:__(1) // will output 'Katze', if you have a german translation
+    'Cat'|:__(2) // will output 'Katzen', if you have a german translation
 
 
 ### Formatting
@@ -215,16 +196,52 @@ There are always two ways to implement the formatters. It's like the variable fu
 #### Numbers
 
     :numberFormat(decimalCount, decimalMark, digitGroup) // global or temporary
-    :number(number, decimalCount, decimalMark, digitGroup) // inline
-    :number(number) // inline, but with default or from :numberFormat
+    :number(decimalCount, decimalMark, digitGroup) // inline
+    :number // inline, but with default or from :numberFormat
 
-**number** - the number which you want to format
 **decimalcount** - count of numbers after the decimal mark **[ default: 2 ]**  
 **decimalMark** - char(s) for the decimal mark **[ default: '.' ]**  
 **digitGroup** - char(s) for digit grouping **[ default: ',' ]**
 
-    :number(10123.4583, 2, ',', '.') // will output 10.123,45
-    :number(10123.4583, 1, '.', ',') // will output 10,123.4
+    10123.4583|:number(2, ',', '.') // will output 10.123,45
+    10123.4583|:number(1, '.', ',') // will output 10,123.4
+
+
+#### Date and Time
+
+TODO
 
 
 #### Currency
+
+TODO
+
+
+## default
+
+sets a default parameter if the predecessor is empty (string, list) or 0 (number) or not defined
+
+    :default(content)
+
+**content** - what you want to instead of the empty or nonexisting predeccesor
+
+    ''|:default('foobar') // will output 'foobar'
+    []|:default('foobar') // will output 'foobar'
+    0|:default('foobar') // will output 'foobar'
+    42|:default('foobar') // will output 42
+
+
+## partly
+
+If you have a string, a list/array you can get parts of it, like you know from other languages. If you have a string, you get a substring, if you have a list, you get the part out of it.
+
+    :partly(start)
+    :partly(start, end)
+
+**start** - index where you want to start (begins with 0)  
+**end** - index where you want to end. you can also use negative numbers **[ default: to end of the string or list/array ]**
+
+    ['abc', 'cde', 'foo', 'bar']|:partly(1, 2) // will output ['cde', 'foo']
+    ['abc', 'cde', 'foo', 'bar']|:partly(0, -1) // will output ['abc', 'cde', 'foo']
+    'foobar'|:partly(1, 2) // will output 'oo'
+    'foobar'|:partly(0, -1) // will output 'fooba'
