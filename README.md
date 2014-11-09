@@ -231,6 +231,18 @@ sets a default parameter if the predecessor is empty (string, list) or 0 (number
     42|:default('foobar') // will output 42
 
 
+## length
+
+get the length of a list or a string
+
+    :length
+
+no arguments here
+
+    'foobar'|:length // will output 6
+    ['abc', 'def', 'ghi']|:length // will output 3
+
+
 ## partly
 
 If you have a string, a list/array you can get parts of it, like you know from other languages. If you have a string, you get a substring, if you have a list, you get the part out of it.
