@@ -82,7 +82,7 @@ This will output the following:
     </html>
 
 # Options / Configuration
-You can set various options, to control the behavior of scylio. With just one parameter, you can read the options value. If you set the second parameter, you will also set the option.
+You can set various options to control the behavior of scylio. With just one parameter, you can read the options value. By setting the second parameter, you set the option.
 
     :config(key, [value])
 
@@ -133,16 +133,16 @@ This will create the html `<div id="foo" class="bar baz" title="test">lorem ipsu
 That's it. It will create the same html.
 
 # Functions
-All functions begins with a `:`, followed by function name and arguments between braces (like a function call in much programming languages). If you don't have arguments, then you don't have to use braces.
+All functions begin with a `:`, followed by function name and arguments in parantheses (like a function call in many programming languages). If you don't have arguments, parantheses are optional.
 
 ## Define a template
 
     :template(query)
 
-**query** - JSONPath query to iterate over
+**query** - JSONPath query over which you iterate
 
 ## Variables
-You can set global and local variables for using in all templates. If you set this outside of a template, it's global, instead it's local for the template. You can not override scylio-based variables. If you're using just one parameter, the var-function is used as a getter, with a second parameter as a setter.
+You can set local variables and global variables for usage in all templates. If you set a variable outside of a template it's global, otherwise it's local for the template. You can not override scylio-based variables. When you call the `var:`function with one parameter, it acts as a getter, with a second parameter as a setter.
 
     :var(key, [value])
 
@@ -156,7 +156,7 @@ You can set global and local variables for using in all templates. If you set th
 
 
 ## Import plain text
-You can import any other file as a plain text. But with this function you can also uses import hooks. That means, if you import a less-file and there's a hook for that, it will automatically parse the file.
+You can import any other file as a plain text or optionally set import hooks. E.g. if you import a less-file and you add a hook for that, it will automatically parse the file.
 
     :import([options])
 
@@ -181,7 +181,7 @@ To add localization support, you have to set the l10n-setting.
 
     :__([plural])
 
-**plural** - number how much entities you have, so the text can use the plural, singular, null or whatever form **[ default: 1 ]**
+**plural** - number of entities that you have, so the text can use the plural, singular, null or whatever form **[ default: 1 ]**
 
     'Cat'|:__ // will output 'Katze', if you have a german translation
     'Cat'|:__(1) // will output 'Katze', if you have a german translation
@@ -190,7 +190,7 @@ To add localization support, you have to set the l10n-setting.
 
 ### Formatting
 
-There are always two ways to implement the formatters. It's like the variable function. If you set it outside a template, the settings will be global, otherwise local for the template. But you can also formatting it inline.
+There are three ways to implement the formatters. Like the variable function, if you set the formatter outside a template, it will be applied globally, otherwise locally for the template. You can even format a value inline.
 
 
 #### Numbers
@@ -199,7 +199,7 @@ There are always two ways to implement the formatters. It's like the variable fu
     :number(decimalCount, decimalMark, digitGroup) // inline
     :number // inline, but with default or from :numberFormat
 
-**decimalcount** - count of numbers after the decimal mark **[ default: 2 ]**  
+**decimalCount** - count of numbers after the decimal mark **[ default: 2 ]**  
 **decimalMark** - char(s) for the decimal mark **[ default: '.' ]**  
 **digitGroup** - char(s) for digit grouping **[ default: ',' ]**
 
